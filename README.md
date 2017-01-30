@@ -1,4 +1,5 @@
 # MPN-selenium
-Selenium test for MPN
+Selenium tests for MPN
 
-This repository contains Java code that runs Selenium Web Driver tests for Novartis MPN Diagnostic Simulator
+This repository contains Java code that runs Selenium Web Driver tests for Novartis MPN Diagnostic Simulator.
+
