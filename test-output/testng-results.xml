@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="8" passed="8">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Test Suite" duration-ms="16291" started-at="2017-01-31T01:54:50Z" finished-at="2017-01-31T01:55:06Z">
+    <groups>
+    </groups>
+    <test name="FirefoxTest" duration-ms="9269" started-at="2017-01-31T01:54:50Z" finished-at="2017-01-31T01:54:59Z">
+      <class name="automated_tests.InitialPopups">
+        <test-method status="PASS" signature="beforeTest(java.lang.String)[pri:0, instance:automated_tests.InitialPopups@42e26948]" name="beforeTest" is-config="true" duration-ms="7664" started-at="2017-01-30T19:54:50Z" finished-at="2017-01-30T19:54:58Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[firefox]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="acceptConsentToUse()[pri:0, instance:automated_tests.InitialPopups@42e26948]" name="acceptConsentToUse" duration-ms="111" started-at="2017-01-30T19:54:58Z" finished-at="2017-01-30T19:54:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- acceptConsentToUse -->
+        <test-method status="PASS" signature="acceptTermsOfUse()[pri:1, instance:automated_tests.InitialPopups@42e26948]" name="acceptTermsOfUse" duration-ms="40" started-at="2017-01-30T19:54:58Z" finished-at="2017-01-30T19:54:58Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- acceptTermsOfUse -->
+        <test-method status="PASS" signature="clickInstructionsOverlay()[pri:2, instance:automated_tests.InitialPopups@42e26948]" name="clickInstructionsOverlay" duration-ms="1240" started-at="2017-01-30T19:54:58Z" finished-at="2017-01-30T19:54:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickInstructionsOverlay -->
+        <test-method status="PASS" signature="main()[pri:3, instance:automated_tests.InitialPopups@42e26948]" name="main" duration-ms="186" started-at="2017-01-30T19:54:59Z" finished-at="2017-01-30T19:54:59Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- main -->
+      </class> <!-- automated_tests.InitialPopups -->
+    </test> <!-- FirefoxTest -->
+    <test name="ChromeTest" duration-ms="7004" started-at="2017-01-31T01:54:59Z" finished-at="2017-01-31T01:55:06Z">
+      <class name="automated_tests.InitialPopups">
+        <test-method status="PASS" signature="beforeTest(java.lang.String)[pri:0, instance:automated_tests.InitialPopups@589838eb]" name="beforeTest" is-config="true" duration-ms="4966" started-at="2017-01-30T19:54:59Z" finished-at="2017-01-30T19:55:04Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[chrome]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeTest -->
+        <test-method status="PASS" signature="acceptConsentToUse()[pri:0, instance:automated_tests.InitialPopups@589838eb]" name="acceptConsentToUse" duration-ms="189" started-at="2017-01-30T19:55:04Z" finished-at="2017-01-30T19:55:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- acceptConsentToUse -->
+        <test-method status="PASS" signature="acceptTermsOfUse()[pri:1, instance:automated_tests.InitialPopups@589838eb]" name="acceptTermsOfUse" duration-ms="111" started-at="2017-01-30T19:55:05Z" finished-at="2017-01-30T19:55:05Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- acceptTermsOfUse -->
+        <test-method status="PASS" signature="clickInstructionsOverlay()[pri:2, instance:automated_tests.InitialPopups@589838eb]" name="clickInstructionsOverlay" duration-ms="1271" started-at="2017-01-30T19:55:05Z" finished-at="2017-01-30T19:55:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- clickInstructionsOverlay -->
+        <test-method status="PASS" signature="main()[pri:3, instance:automated_tests.InitialPopups@589838eb]" name="main" duration-ms="459" started-at="2017-01-30T19:55:06Z" finished-at="2017-01-30T19:55:06Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- main -->
+      </class> <!-- automated_tests.InitialPopups -->
+    </test> <!-- ChromeTest -->
+  </suite> <!-- Test Suite -->
+</testng-results>
