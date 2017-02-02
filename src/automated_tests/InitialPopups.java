@@ -24,12 +24,13 @@ import org.openqa.selenium.safari.SafariDriver;
 public class InitialPopups {
 	
 	public WebDriver driver;
+	StringBuffer verificationErrors = new StringBuffer();
+	WebDriverWait wait;
+
 	 
 	@Parameters("browser")
 	@BeforeClass
 	public void beforeTest(String browser) {
-		
-		
 	//set browser driver
 		if (browser.equalsIgnoreCase("firefox"))
 		{
@@ -53,26 +54,73 @@ public class InitialPopups {
 			System.out.println("Driver not configured for browser " + browser);
 		}
 		
+		
+		  wait = new WebDriverWait(driver, 20);
 	//set base URL
-		  driver.get("https://sd2.tietronix.com/mpndx2016/");
+		  
 	  }
+
+	public void loadMPNPage() {
+		driver.get("https://sd2.tietronix.com/mpndx2016/");
+	}
 	
-  @Test(priority = 0)
-  public void acceptConsentToUse() {
+ @Test (priority = 0)
+ 	public void checkConsentToUseText() {
+	  
+	 loadMPNPage();
+	 try {
+		  assertEquals("This application is intended for use by licensed healthcare practitioners and is prepared in English only. At this time, application use should be limited to those countries accepting labeling in English for professional use - United Kingdom, Ireland, Cyprus, Luxembourg, Malta, Poland, Bulgaria, and Latvia. This application was validated to the most recent browser capability at the time of launch - if this application is not working on your browser please contact trd_ussc.complaints@novartis.com.", driver.findElement(By.cssSelector("#ui-id-1 > div.next_text.mt40 > span")).getText());
+		  System.out.println("Consent to Use text is correct");
+		} catch (Error e) {
+		  verificationErrors.append(e.toString());
+		}
+  }
+	@Test (priority = 1)
+	public void rejectConsentToUse() {
+		driver.findElement(By.id("btnDoNotConsent")).click();
+		
+		//TODO: Look into $.tablesorter is undefined Javascript error
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("no_html5")));
+		
+		try {
+		  assertEquals("This application can only be used after accepting the Terms of Use and Privacy Policy", driver.findElement(By.cssSelector("span")).getText());
+		  System.out.println("Rejected terms of use warning text correct");
+		} catch (Error e) {
+		  verificationErrors.append(e.toString());
+		}
+  }
+  
+  @Test (priority = 2)
+  	public void acceptConsentToUse() {
+	  loadMPNPage();
 	  driver.findElement(By.id("btnUnderstandAndConsent")).click();
 	  System.out.println("Accepted Consent to Use");
   }
   
-  @Test(priority = 1)
-  public void acceptTermsOfUse() {
+  @Test (priority =3)
+  	public void rejectTermsOfUse() {
+	  driver.findElement(By.id("btnRejectTerms")).click();
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("no_html5")));
+		
+		try {
+		  assertEquals("This application can only be used after accepting the Terms of Use and Privacy Policy", driver.findElement(By.cssSelector("span")).getText());
+		  System.out.println("Rejected terms of use warning text correct");
+		} catch (Error e) {
+		  verificationErrors.append(e.toString());
+		}
+  	}
+  
+  @Test (priority = 4)
+  	public void acceptTermsOfUse() {
+	  loadMPNPage();
 	  driver.findElement(By.id("btnAcceptTerms")).click();
 	  System.out.println("Accepted Terms of Use");
-  }
+  	}
   
-  @Test(priority = 2)
-  public void clickInstructionsOverlay() {
+  @Test (priority = 5)
+  	public void clickInstructionsOverlay() {
     //Wait until the instructions overlay to show up before clicking it
-    WebDriverWait wait = new WebDriverWait(driver, 20);
+
     wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("instructionsOverlayHeader")));
     driver.findElement(By.className("instructionsOverlayHeader")).click();
     
@@ -80,28 +128,26 @@ public class InitialPopups {
     //Wait until the instructions overlay disappears before continuing
     wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("instructionsOverlayHeader")));
     System.out.println("Closed instructions overlay");
-  }
+  	}
   
-  @Test(priority = 3)
-  public void main() {
-    //Click Patient History form
-    driver.findElement(By.xpath(".//*[@id='btn_PH']/div/a")).click();
-    
-    //Wait until the Patient History form appears
-    WebDriverWait wait = new WebDriverWait(driver, 20);
-    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='patient_feedback']/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/label/span")));
-    System.out.println("opened Patient History");
-    
-    
-    StringBuffer verificationErrors = new StringBuffer();
-    try {
-    	  assertEquals("Female", driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).getText());
-    	} catch (Error e) {
-    	  verificationErrors.append(e.toString());
-    	}
-    driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).click();
-    System.out.println("Verification Errors:" + verificationErrors.toString());
-  }
+  @Test (priority = 6 )
+	public void main() {
+	    //Click Patient History form
+	driver.findElement(By.xpath(".//*[@id='btn_PH']/div/a")).click();
+	
+	//Wait until the Patient History form appears
+	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='patient_feedback']/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/label/span")));
+	System.out.println("opened Patient History");
+	
+	
+	    try {
+		  assertEquals("Female", driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).getText());
+		} catch (Error e) {
+		  verificationErrors.append(e.toString());
+		}
+	driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).click();
+	System.out.println("Verification Errors:" + verificationErrors.toString());
+	}
 
 
 }
