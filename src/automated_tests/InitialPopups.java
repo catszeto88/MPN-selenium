@@ -1,9 +1,9 @@
 package automated_tests;
 
+import static org.testng.AssertJUnit.assertEquals;
+import org.testng.annotations.Test;
 import org.testng.annotations.Test;
 
-
-import static org.junit.Assert.assertEquals;
 
 import org.openqa.selenium.By;
 
@@ -23,25 +23,43 @@ import org.openqa.selenium.safari.SafariDriver;
 
 public class InitialPopups {
 	
-	public WebDriver driver;
-	StringBuffer verificationErrors = new StringBuffer();
-	WebDriverWait wait;
+	public static WebDriver driver;
+	static StringBuffer verificationErrors = new StringBuffer();
+	static WebDriverWait wait;
+	String browser;
 
-	 
+	
+	public static WebDriver nominalPopups(String browser) {
+		beforeTest(browser);
+		loadMPNPage();
+		checkConsentToUseText();
+		acceptConsentToUse();
+		acceptTermsOfUse();
+		clickInstructionsOverlay();
+		
+		return driver;
+	}
+	
 	@Parameters("browser")
 	@BeforeClass
-	public void beforeTest(String browser) {
+	public static void beforeTest(String browser) {
 	//set browser driver
 		if (browser.equalsIgnoreCase("firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver","/Users/catherineszeto/Documents/workspace/MPN/geckodriver");
+			System.setProperty("webdriver.gecko.driver","C:\\webDrivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			System.out.println("Set for browser " + browser);
 		}
 		else if (browser.equalsIgnoreCase("chrome"))
 		{
-			System.setProperty("webdriver.chrome.driver","/Users/catherineszeto/Documents/workspace/MPN/chromedriver");
+			System.setProperty("webdriver.chrome.driver","C:\\webDrivers\\chromedriver.exe");
 			driver = new ChromeDriver();
+			System.out.println("Set for browser " + browser);
+		}
+		else if (browser.equalsIgnoreCase("ie"))
+		{
+			System.setProperty("webdriver.ie.driver","C:\\webDrivers\\IEDriverServer.exe");
+			driver = new InternetExplorerDriver();
 			System.out.println("Set for browser " + browser);
 		}
 		  //Opera and IE only work on Windows?
@@ -60,12 +78,12 @@ public class InitialPopups {
 		  
 	  }
 
-	public void loadMPNPage() {
+	public static void loadMPNPage() {
 		driver.get("https://sd2.tietronix.com/mpndx2016/");
 	}
 	
  @Test (priority = 0)
- 	public void checkConsentToUseText() {
+ 	public static void checkConsentToUseText() {
 	  
 	 loadMPNPage();
 	 try {
@@ -91,7 +109,7 @@ public class InitialPopups {
   }
   
   @Test (priority = 2)
-  	public void acceptConsentToUse() {
+  	public static void acceptConsentToUse() {
 	  loadMPNPage();
 	  driver.findElement(By.id("btnUnderstandAndConsent")).click();
 	  System.out.println("Accepted Consent to Use");
@@ -111,14 +129,14 @@ public class InitialPopups {
   	}
   
   @Test (priority = 4)
-  	public void acceptTermsOfUse() {
+  	public static void acceptTermsOfUse() {
 	  loadMPNPage();
 	  driver.findElement(By.id("btnAcceptTerms")).click();
 	  System.out.println("Accepted Terms of Use");
   	}
   
   @Test (priority = 5)
-  	public void clickInstructionsOverlay() {
+  	public static void clickInstructionsOverlay() {
     //Wait until the instructions overlay to show up before clicking it
 
     wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("instructionsOverlayHeader")));
@@ -131,7 +149,7 @@ public class InitialPopups {
   	}
   
   @Test (priority = 6 )
-	public void main() {
+	public void quiz() {
 	    //Click Patient History form
 	driver.findElement(By.xpath(".//*[@id='btn_PH']/div/a")).click();
 	
@@ -139,15 +157,22 @@ public class InitialPopups {
 	wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id='patient_feedback']/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/label/span")));
 	System.out.println("opened Patient History");
 	
-	
-	    try {
-		  assertEquals("Female", driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).getText());
-		} catch (Error e) {
-		  verificationErrors.append(e.toString());
-		}
-	driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).click();
+    try {
+	  assertEquals("Female", driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).getText());
+	} catch (Error e) {
+	  verificationErrors.append(e.toString());
 	System.out.println("Verification Errors:" + verificationErrors.toString());
 	}
+    
+    //Click Female button
+	driver.findElement(By.xpath("//form[@id='patient_feedback']/div/div/div[2]/div[2]/div/div[2]/label")).click();
+
+	}
+  
+  	@Test 
+  	public void closeDriver() {
+  		driver.quit();
+  	}
 
 
 }
