@@ -17,6 +17,6 @@ public class AlgorithmTests {
 		driver = InitialPopups.nominalPopups(browser);
 		ExcelUtils.setExcelFile(path);
 		testData = ExcelUtils.getTestData();
-		System.out.println(testData[0][0]);
+		
 	}
 }
